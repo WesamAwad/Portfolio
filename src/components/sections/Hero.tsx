@@ -20,17 +20,17 @@ export function Hero() {
       <div className="mx-auto grid min-h-svh max-w-6xl content-center items-center justify-items-center gap-0 px-4 py-20 text-center sm:px-6 md:content-normal md:items-center md:gap-10 md:grid-cols-2 md:justify-items-stretch md:px-8 md:py-28 md:text-start">
         {/* النص — على الموبايل يطلع فوق أسفل الصورة */}
         <div className="order-2 relative z-20 -mt-28 max-w-xl md:order-1 md:mt-0">
-          <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 -top-16 bottom-0 -z-10 bg-linear-to-t from-background via-background/90 to-transparent md:hidden" />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 -top-24 bottom-0 -z-10 bg-linear-to-t from-background from-40% via-background/95 to-transparent md:hidden" />
 
           <h1 id="hero-heading" className="font-hero text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl md:text-6xl">
-            <span className="font-medium text-muted">Hi – I'm</span> <span className="font-bold text-foreground">{profile.firstName}</span>
+            <span className="font-medium text-foreground/85">Hi – I'm</span> <span className="font-bold text-foreground">{profile.firstName}</span>
           </h1>
 
-          <p className="mt-3 font-display text-sm font-bold tracking-[0.2em] text-primary uppercase sm:text-base">{profile.role}</p>
+          <p className="mt-2.5 font-display text-sm font-bold tracking-[0.2em] text-primary uppercase sm:text-base md:mt-3">{profile.role}</p>
 
           <p className="mt-3 max-w-md text-sm leading-relaxed text-muted sm:text-base md:mt-5 md:text-lg">{profile.summary}</p>
 
-          <div className="mt-5 flex flex-wrap justify-center gap-3 md:mt-8 md:justify-start">
+          <div className="mt-7 flex flex-wrap justify-center gap-3 md:mt-8 md:justify-start">
             <a href={profile.ctas.primary.href} className="rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
               {profile.ctas.primary.label}
             </a>
@@ -43,7 +43,7 @@ export function Hero() {
             </a>
           </div>
 
-          <div className="mt-4 flex justify-center gap-3 md:mt-6 md:justify-start">
+          <div className="mt-6 flex justify-center gap-3 md:justify-start">
             {socialLinks.map(({ href, label, icon: Icon, external }) => (
               <a key={label} href={href} className={iconLinkClassName} aria-label={label} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
                 <Icon className="h-5 w-5 shrink-0" aria-hidden="true" />
@@ -62,7 +62,7 @@ export function Hero() {
             height={800}
             fetchPriority="high"
             decoding="async"
-            className="relative z-10 w-full max-w-md object-contain transition-opacity duration-300 dark:mask-[linear-gradient(to_bottom,black_80%,transparent_100%)] dark:[-webkit-mask-image:linear-gradient(to_bottom,black_80%,transparent_100%)] md:max-w-lg"
+            className="relative z-10 w-full max-w-md object-contain transition-opacity duration-300 mask-[linear-gradient(to_bottom,black_75%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)] md:max-w-lg"
           />
         </div>
       </div>
