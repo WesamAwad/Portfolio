@@ -6,8 +6,7 @@ const THEME_KEY = "theme";
 function getInitialTheme(): Theme {
   const saved = localStorage.getItem(THEME_KEY);
   if (saved === "dark" || saved === "light") return saved;
-  // First visit: always dark; user can switch later and it will be remembered.
-  return "dark";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {

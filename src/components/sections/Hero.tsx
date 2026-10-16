@@ -58,8 +58,8 @@ export function Hero() {
           <img
             src={dark ? profile.image.dark : profile.image.light}
             alt={profile.image.alt}
-            width={640}
-            height={800}
+            width={1024}
+            height={1024}
             fetchPriority="high"
             decoding="async"
             className="relative z-10 w-full max-w-md object-contain transition-opacity duration-300 mask-[linear-gradient(to_bottom,black_75%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)] md:max-w-lg"

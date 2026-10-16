@@ -21,7 +21,7 @@ function scrollToTop() {
 
 export function Footer() {
   return (
-    <footer className="border-t border-border/80 bg-[color-mix(in_oklab,var(--background)_88%,black)]">
+    <footer className="border-t border-border/80 bg-background dark:bg-[color-mix(in_oklab,var(--background)_88%,black)]">
       <div className="mx-auto flex max-w-6xl flex-col items-center px-4 py-8 text-center sm:px-6 md:items-stretch md:px-8 md:text-start">
         {/* Row 1 */}
         <div className="flex w-full flex-col items-center gap-5 md:flex-row md:items-center md:justify-between md:gap-6">

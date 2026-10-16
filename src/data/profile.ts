@@ -1,6 +1,3 @@
-import heroDarkImage from "../assets/Profile.png";
-import heroLightImage from "../assets/Profile.png";
-
 export const profile = {
   firstName: "Wesam",
   lastName: "Awad",
@@ -8,8 +5,9 @@ export const profile = {
   greeting: "Hi – I'm Wesam",
   summary: "Crafting innovative solutions to solve real-world problems.",
   image: {
-    light: heroLightImage,
-    dark: heroDarkImage,
+    /** Stable public URL so LCP can be preloaded from index.html */
+    light: "/profile.webp",
+    dark: "/profile.webp",
     alt: "Wesam Awad, Front-End Developer",
   },
   ctas: {

@@ -1,6 +1,6 @@
-import alkanzAcademyImage from "../assets/Alkanze-Mockup.png";
-import creativeAgencyImage from "../assets/SpecialDesighn-Mockup.png";
-import swiftFixImage from "../assets/SwiftFix-Mockup.png";
+import alkanzAcademyImage from "../assets/Alkanze-Mockup.webp";
+import creativeAgencyImage from "../assets/SpecialDesighn-Mockup.webp";
+import swiftFixImage from "../assets/SwiftFix-Mockup.webp";
 
 export type ProjectCategory = "react-ts" | "vanilla-js" | "landing";
 
@@ -38,7 +38,7 @@ export const projects: Project[] = [
     description: "A service-marketplace platform connecting users with repair workshops — built to simplify device diagnostics and fix workflows into a seamless React web interface.",
     role: "Front-End Developer — built the UI, state management, and interactive flows in React & TypeScript.",
     category: "react-ts",
-    tech: ["React", "TypeScript", "Tailwind CSS", "Redux"],
+    tech: ["React", "TypeScript", "Tailwind", "Redux"],
     image: swiftFixImage,
     liveUrl: "https://swiftfix-app-project.vercel.app/",
     featured: true,

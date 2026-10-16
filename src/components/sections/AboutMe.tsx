@@ -1,3 +1,4 @@
+import { SectionHeadingUnderline } from "../SectionHeadingUnderline";
 import { aboutContent } from "../../data/about";
 
 export function AboutMe() {
@@ -12,7 +13,7 @@ export function AboutMe() {
             <h2 id="about-heading" className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               {aboutContent.title}
             </h2>
-            <span aria-hidden="true" className="mt-3 block h-1 w-16 origin-center rounded-full bg-primary transition-[width] duration-300 ease-out group-hover:w-full md:origin-left" />
+            <SectionHeadingUnderline />
           </div>
         </div>
 
@@ -22,16 +23,16 @@ export function AboutMe() {
             <p className="mt-5 text-base leading-relaxed text-muted sm:text-lg">{aboutContent.summary}</p>
           </div>
 
-          <ul className="grid w-full max-w-md gap-4 sm:max-w-none sm:grid-cols-3 lg:grid-cols-1">
+          <ul className="grid w-full max-w-md grid-cols-3 gap-3 sm:max-w-none md:gap-4 md:grid-cols-3 lg:grid-cols-1">
             {aboutContent.metrics.map(({ icon: Icon, value, label }) => (
-              <li key={label}>
-                <article className="flex flex-col items-center gap-3 rounded-xl border border-primary/35 bg-card/60 p-4 text-center shadow-[0_0_24px_-8px_color-mix(in_oklab,var(--primary)_35%,transparent)] backdrop-blur-md transition hover:border-primary/60 md:flex-row md:items-center md:gap-4 md:text-start lg:flex-row">
-                  <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-primary/30 bg-primary/10 text-primary">
+              <li key={label} className="min-w-0">
+                <article className="flex h-full w-full flex-col items-center justify-center gap-3 rounded-xl border border-primary/35 bg-card/60 p-3 text-center shadow-[0_0_24px_-8px_color-mix(in_oklab,var(--primary)_35%,transparent)] backdrop-blur-md transition hover:border-primary/60 md:flex-row md:items-center md:justify-start md:gap-4 md:p-4 md:text-start lg:flex-row">
+                  <span className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-primary/30 bg-primary/10 text-primary md:flex">
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </span>
                   <div>
-                    <p className="font-hero text-2xl font-bold tracking-tight text-foreground sm:text-3xl">{value}</p>
-                    <p className="mt-0.5 text-sm font-medium text-primary">{label}</p>
+                    <p className="font-hero text-xl font-bold tracking-tight text-foreground md:text-3xl">{value}</p>
+                    <p className="mt-0.5 text-xs font-medium text-primary md:text-sm">{label}</p>
                   </div>
                 </article>
               </li>

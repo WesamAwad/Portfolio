@@ -1,10 +1,11 @@
 import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import { createPortal } from "react-dom";
 import { ExternalLink, Eye, X } from "lucide-react";
+import { SectionHeadingUnderline } from "../SectionHeadingUnderline";
 import { certificates, type Certificate } from "../../data/certificates";
 
 const glassCardClass =
-  "group flex h-full flex-col overflow-hidden rounded-2xl border border-border/80 bg-card shadow-[0_0_0_1px_color-mix(in_oklab,var(--primary)_0%,transparent)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_0_32px_-10px_color-mix(in_oklab,var(--primary)_45%,transparent)] motion-reduce:transform-none";
+  "group flex h-full flex-col overflow-hidden rounded-2xl border border-border/80 bg-card shadow-sm backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_0_32px_-10px_color-mix(in_oklab,var(--primary)_45%,transparent)] motion-reduce:transform-none dark:shadow-[0_0_0_1px_color-mix(in_oklab,var(--primary)_0%,transparent)]";
 
 const secondaryBtnClass =
   "inline-flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-lg border border-border bg-card/70 px-3 py-2 text-xs font-semibold text-card-foreground transition hover:border-primary/50 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring";
@@ -97,7 +98,15 @@ function CertificateImageModal({ certificate, onClose }: { certificate: Certific
           </button>
         </div>
         <div className="overflow-y-auto px-5 py-4">
-          <img src={certificate.image} alt={`Full certificate: ${certificate.title} issued by ${certificate.issuer}`} className="mx-auto max-h-[min(70vh,32rem)] w-full rounded-xl object-contain" />
+          <img
+            src={certificate.image}
+            alt={`Full certificate: ${certificate.title} issued by ${certificate.issuer}`}
+            width={3508}
+            height={2480}
+            loading="lazy"
+            decoding="async"
+            className="mx-auto max-h-[min(70vh,32rem)] w-full rounded-xl object-contain"
+          />
         </div>
       </div>
     </div>,
@@ -113,7 +122,7 @@ function CertificateCover({ certificate, onOpen }: { certificate: Certificate; o
     <button
       type="button"
       onClick={onOpen}
-      className="group/cover relative aspect-video w-full cursor-pointer overflow-hidden bg-linear-to-br from-background via-card to-background text-start focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring"
+      className="group/cover relative h-28 w-full cursor-pointer overflow-hidden border-b border-border bg-slate-50 text-start focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring md:aspect-video md:h-auto dark:border-b-0 dark:bg-linear-to-br dark:from-background dark:via-card dark:to-background"
       aria-label={`View certificate for ${certificate.title}`}
       style={{ "--cover-icon": iconColor } as CSSProperties}
     >
@@ -143,7 +152,7 @@ function CertificateCover({ certificate, onOpen }: { certificate: Certificate; o
         <span className="absolute inset-0 z-10 flex items-center justify-center">
           <Icon
             aria-hidden="true"
-            className="h-14 w-14 transition duration-500 group-hover/cover:scale-110 motion-reduce:transition-none motion-reduce:group-hover/cover:scale-100 sm:h-16 sm:w-16"
+            className="h-11 w-11 transition duration-500 group-hover/cover:scale-110 motion-reduce:transition-none motion-reduce:group-hover/cover:scale-100 md:h-14 md:w-14 lg:h-16 lg:w-16"
             style={{
               color: iconColor,
               filter: "drop-shadow(0 0 16px color-mix(in oklab, var(--cover-icon) 50%, transparent))",
@@ -162,7 +171,7 @@ function CertificateCard({ certificate }: { certificate: Certificate }) {
 
   return (
     <>
-      <article className={glassCardClass}>
+      <article className={`${glassCardClass} w-full`}>
         <CertificateCover certificate={certificate} onOpen={() => setViewerOpen(true)} />
 
         <div className="flex flex-1 flex-col gap-4 p-5">
@@ -205,6 +214,43 @@ function CertificateCard({ certificate }: { certificate: Certificate }) {
 }
 
 export function Certificates() {
+  const scrollerRef = useRef<HTMLUListElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
+
+    const updateActiveIndex = () => {
+      const items = Array.from(scroller.children) as HTMLElement[];
+      if (items.length === 0) return;
+
+      const center = scroller.scrollLeft + scroller.clientWidth / 2;
+      let nearest = 0;
+      let nearestDistance = Number.POSITIVE_INFINITY;
+
+      items.forEach((item, index) => {
+        const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+        const distance = Math.abs(itemCenter - center);
+        if (distance < nearestDistance) {
+          nearestDistance = distance;
+          nearest = index;
+        }
+      });
+
+      setActiveIndex((current) => (current === nearest ? current : nearest));
+    };
+
+    updateActiveIndex();
+    scroller.addEventListener("scroll", updateActiveIndex, { passive: true });
+    window.addEventListener("resize", updateActiveIndex);
+
+    return () => {
+      scroller.removeEventListener("scroll", updateActiveIndex);
+      window.removeEventListener("resize", updateActiveIndex);
+    };
+  }, []);
+
   return (
     <section id="certificates" aria-labelledby="certificates-heading" className="relative -scroll-mt-5 overflow-hidden border-t border-border/80 bg-background">
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-primary/50 to-transparent" />
@@ -218,18 +264,46 @@ export function Certificates() {
             <h2 id="certificates-heading" className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               Credentials & <span className="text-primary">Certificates</span>
             </h2>
-            <span aria-hidden="true" className="mt-3 block h-1 w-16 origin-center rounded-full bg-primary transition-[width] duration-300 ease-out group-hover:w-full md:origin-left" />
+            <SectionHeadingUnderline />
           </div>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">Verified specializations, courses, and training that support my frontend craft.</p>
         </div>
 
-        <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <ul
+          ref={scrollerRef}
+          className="flex items-stretch snap-x snap-mandatory gap-4 overflow-x-auto [-ms-overflow-style:none] scrollbar-none [&::-webkit-scrollbar]:hidden md:grid md:snap-none md:grid-cols-2 md:gap-6 md:overflow-x-visible lg:grid-cols-3"
+        >
           {certificates.map((certificate, index) => (
-            <li key={certificate.id} className="h-full motion-safe:animate-[fade-up_0.5s_ease-out_both]" style={{ animationDelay: `${index * 80}ms` }}>
+            <li
+              key={certificate.id}
+              className="flex w-[85%] shrink-0 snap-center motion-safe:animate-[fade-up_0.5s_ease-out_both] md:w-auto md:shrink"
+              style={{ animationDelay: `${index * 80}ms` }}
+            >
               <CertificateCard certificate={certificate} />
             </li>
           ))}
         </ul>
+
+        <div className="mt-5 flex justify-center gap-2 md:hidden" role="tablist" aria-label="Certificate slides">
+          {certificates.map((certificate, index) => (
+            <button
+              key={certificate.id}
+              type="button"
+              role="tab"
+              aria-selected={activeIndex === index}
+              aria-label={`Go to ${certificate.title}`}
+              className={`h-2 w-2 cursor-pointer rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring ${activeIndex === index ? "bg-primary" : "bg-border hover:bg-muted"}`}
+              onClick={() => {
+                const scroller = scrollerRef.current;
+                const item = scroller?.children[index] as HTMLElement | undefined;
+                if (!scroller || !item) return;
+                const left = item.offsetLeft - (scroller.clientWidth - item.offsetWidth) / 2;
+                const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                scroller.scrollTo({ left: Math.max(0, left), behavior: reduceMotion ? "auto" : "smooth" });
+              }}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

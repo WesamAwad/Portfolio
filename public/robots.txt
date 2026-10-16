@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wesam-portfolio-one.vercel.app/sitemap.xml

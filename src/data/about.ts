@@ -11,7 +11,7 @@ export const aboutContent = {
   headline:
     "Building polished React interfaces that feel fast, clear, and intentional",
   summary:
-    "Front-End Developer focused on React and modern UI craft. I turn product ideas into accessible, high-performance interfaces with clean architecture and careful attention to detail — from first paint to every interaction. My goal is simple: experiences that look professional and work beautifully.",
+    "Front-End Developer focused on React and modern UI. I turn product ideas into fast, accessible interfaces — built to look professional and work beautifully.",
   metrics: [
     { icon: Calendar, value: "+5 Years", label: "Experience" },
     { icon: Rocket, value: "+30", label: "Projects Delivered" },

@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { ArrowUpRight, ExternalLink, Info, X } from "lucide-react";
 import { GitHubIcon } from "../icons/BrandIcons";
+import { SectionHeadingUnderline } from "../SectionHeadingUnderline";
 import { projectFilters, projects, projectsContent, type Project, type ProjectFilterId } from "../../data/projects";
 
 function filteredProjects(filter: ProjectFilterId): Project[] {
@@ -71,6 +72,10 @@ function ProjectDetailsModal({
             <img
               src={project.image}
               alt={`Screenshot of ${project.title}`}
+              width={1600}
+              height={1067}
+              loading="lazy"
+              decoding="async"
               className="mb-4 aspect-video w-full rounded-xl object-cover"
             />
           ) : null}
@@ -123,6 +128,8 @@ function ProjectCard({ project }: { project: Project }) {
             <img
               src={project.image}
               alt={`Screenshot of ${project.title}`}
+              width={1600}
+              height={1067}
               loading="lazy"
               decoding="async"
               className="h-full w-full object-cover opacity-90 transition duration-500 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
@@ -168,11 +175,19 @@ function ProjectCard({ project }: { project: Project }) {
           </div>
 
           <ul className="flex flex-wrap gap-2">
-            {project.tech.map((tech) => (
-              <li key={tech} className="rounded-full border border-primary/25 bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
+            {project.tech.map((tech, index) => (
+              <li
+                key={tech}
+                className={`rounded-full border border-primary/25 bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary ${index >= 3 ? "hidden md:list-item" : ""}`}
+              >
                 {tech}
               </li>
             ))}
+            {project.tech.length > 3 ? (
+              <li className="rounded-full border border-primary/25 bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary md:hidden" aria-label={`${project.tech.length - 3} more technologies`}>
+                +{project.tech.length - 3}
+              </li>
+            ) : null}
           </ul>
 
           <div className="mt-auto flex flex-col gap-2 pt-1">
@@ -240,11 +255,15 @@ export function Projects() {
             <h2 id="projects-heading" className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               {projectsContent.title}
             </h2>
-            <span aria-hidden="true" className="mt-3 block h-1 w-16 origin-center rounded-full bg-primary transition-[width] duration-300 ease-out group-hover:w-full md:origin-left" />
+            <SectionHeadingUnderline />
           </div>
         </div>
 
-        <div className="mb-10 flex flex-wrap items-center justify-center gap-2 md:mb-12" role="tablist" aria-label="Project filters">
+        <div
+          className="mb-10 flex flex-nowrap items-center justify-start gap-2 overflow-x-auto [-ms-overflow-style:none] scrollbar-none [&::-webkit-scrollbar]:hidden md:mb-12 md:flex-wrap md:justify-center"
+          role="tablist"
+          aria-label="Project filters"
+        >
           {projectFilters.map((item) => {
             const isActive = filter === item.id;
             return (
@@ -254,7 +273,7 @@ export function Projects() {
                 role="tab"
                 aria-selected={isActive}
                 onClick={() => setFilter(item.id)}
-                className={`cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring ${
+                className={`shrink-0 cursor-pointer rounded-full border px-4 py-2 text-sm font-medium transition duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring ${
                   isActive ? "border-primary bg-primary text-primary-foreground shadow-[0_0_24px_-6px_color-mix(in_oklab,var(--primary)_55%,transparent)]" : "border-border bg-card/60 text-muted hover:border-primary/40 hover:text-foreground"
                 }`}
               >

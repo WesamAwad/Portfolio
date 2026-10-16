@@ -2,6 +2,7 @@ import { useEffect, useId, useState, type FormEvent } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 import { CheckCircle2, Loader2, Send } from "lucide-react";
 import { WhatsAppIcon } from "../icons/BrandIcons";
+import { SectionHeadingUnderline } from "../SectionHeadingUnderline";
 import { profile } from "../../data/profile";
 
 type ContactMode = "email" | "whatsapp";
@@ -130,7 +131,7 @@ export function Contact() {
             <h2 id="contact-heading" className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               Get in <span className="text-primary">Touch</span>
             </h2>
-            <span aria-hidden="true" className="mt-2.5 block h-1 w-16 origin-center rounded-full bg-primary transition-[width] duration-300 ease-out group-hover:w-full md:origin-left" />
+            <SectionHeadingUnderline className="mt-2.5" />
           </div>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">Have a project, role, or collaboration in mind? Send a message — I usually reply within a day.</p>
         </div>

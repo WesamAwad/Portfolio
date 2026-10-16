@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent } from "react";
+import { SectionHeadingUnderline } from "../SectionHeadingUnderline";
 import { skillsContent, skillTrackBottom, skillTrackTop, type SkillItem } from "../../data/skills";
 
 const LOOP_COPIES = 2;
@@ -20,26 +21,31 @@ function usePrefersReducedMotion() {
 
 function TechBadge({ item }: { item: SkillItem }) {
   const Icon = item.icon;
+  const isWhiteIcon = /^#fff(fff)?$/i.test(item.color);
 
   return (
     <span
-      className="group/badge inline-flex shrink-0 select-none flex-col items-center justify-center gap-1.5 rounded-2xl border border-border/80 bg-[color-mix(in_oklab,var(--card)_82%,#161b22)] px-5 py-3.5 shadow-[0_0_18px_-8px_color-mix(in_oklab,var(--primary)_25%,transparent),inset_0_1px_0_color-mix(in_oklab,var(--primary)_12%,transparent)] backdrop-blur-md transition duration-300 hover:z-10 hover:scale-110 hover:border-primary/50 hover:shadow-[0_0_28px_-4px_color-mix(in_oklab,var(--primary)_45%,transparent)] motion-reduce:transition-none motion-reduce:hover:scale-100"
+      className="group/badge inline-flex shrink-0 select-none flex-col items-center justify-center gap-1.5 rounded-2xl border border-border bg-white px-5 py-3.5 shadow-sm transition duration-300 hover:z-10 hover:scale-110 hover:border-primary/50 hover:shadow-[0_0_28px_-4px_color-mix(in_oklab,var(--primary)_45%,transparent)] motion-reduce:transition-none motion-reduce:hover:scale-100 dark:border-border/80 dark:bg-[color-mix(in_oklab,var(--card)_82%,#161b22)] dark:shadow-[0_0_18px_-8px_color-mix(in_oklab,var(--primary)_25%,transparent),inset_0_1px_0_color-mix(in_oklab,var(--primary)_12%,transparent)] dark:backdrop-blur-md"
       style={
         {
-          "--badge-brand": item.color,
+          "--badge-brand": isWhiteIcon ? "var(--foreground)" : item.color,
         } as CSSProperties
       }
     >
       <Icon
         aria-hidden="true"
-        className="h-7 w-7 shrink-0 transition duration-300 group-hover/badge:scale-105 sm:h-8 sm:w-8"
+        className={`h-7 w-7 shrink-0 transition duration-300 group-hover/badge:scale-105 sm:h-8 sm:w-8 ${isWhiteIcon ? "text-foreground dark:text-white" : ""}`}
         style={
           item.preserveColors
             ? undefined
-            : {
-                color: item.color,
-                filter: "drop-shadow(0 0 6px color-mix(in oklab, var(--badge-brand) 35%, transparent))",
-              }
+            : isWhiteIcon
+              ? {
+                  filter: "drop-shadow(0 0 6px color-mix(in oklab, var(--badge-brand) 35%, transparent))",
+                }
+              : {
+                  color: item.color,
+                  filter: "drop-shadow(0 0 6px color-mix(in oklab, var(--badge-brand) 35%, transparent))",
+                }
         }
       />
       <span className="text-xs font-semibold text-foreground sm:text-sm">{item.name}</span>
@@ -68,7 +74,6 @@ function MarqueeTrack({ items, direction, reducedMotion, label }: MarqueeTrackPr
   const velocityBoostRef = useRef(1);
   const rafRef = useRef<number | null>(null);
   const lastTimeRef = useRef<number | null>(null);
-  const [offset, setOffset] = useState(0);
   const [grabbing, setGrabbing] = useState(false);
 
   const measure = useCallback(() => {
@@ -85,6 +90,14 @@ function MarqueeTrack({ items, direction, reducedMotion, label }: MarqueeTrackPr
     while (next >= width) next -= width;
     while (next < 0) next += width;
     return next;
+  }, []);
+
+  const applyOffset = useCallback((value: number) => {
+    offsetRef.current = value;
+    const trackEl = trackRef.current;
+    if (trackEl) {
+      trackEl.style.transform = `translate3d(${-value}px, 0, 0)`;
+    }
   }, []);
 
   useEffect(() => {
@@ -110,8 +123,7 @@ function MarqueeTrack({ items, direction, reducedMotion, label }: MarqueeTrackPr
       if (!draggingRef.current && !pausedRef.current && loopWidthRef.current > 0) {
         const signed = direction === "left" ? 1 : -1;
         velocityBoostRef.current += (1 - velocityBoostRef.current) * Math.min(1, delta * 3);
-        offsetRef.current = normalizeOffset(offsetRef.current + signed * SPEED_PX_PER_SEC * velocityBoostRef.current * delta);
-        setOffset(offsetRef.current);
+        applyOffset(normalizeOffset(offsetRef.current + signed * SPEED_PX_PER_SEC * velocityBoostRef.current * delta));
       }
 
       rafRef.current = requestAnimationFrame(tick);
@@ -122,7 +134,7 @@ function MarqueeTrack({ items, direction, reducedMotion, label }: MarqueeTrackPr
       if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
       lastTimeRef.current = null;
     };
-  }, [direction, reducedMotion, normalizeOffset]);
+  }, [applyOffset, direction, reducedMotion, normalizeOffset]);
 
   const onPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (event.button !== 0) return;
@@ -140,9 +152,7 @@ function MarqueeTrack({ items, direction, reducedMotion, label }: MarqueeTrackPr
     if (!draggingRef.current || pointerIdRef.current !== event.pointerId) return;
     const deltaX = event.clientX - dragStartXRef.current;
     // Dragging right moves content right → opposite of left-scroll offset growth
-    const next = normalizeOffset(dragStartOffsetRef.current - deltaX);
-    offsetRef.current = next;
-    setOffset(next);
+    applyOffset(normalizeOffset(dragStartOffsetRef.current - deltaX));
   };
 
   const endDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
@@ -177,7 +187,7 @@ function MarqueeTrack({ items, direction, reducedMotion, label }: MarqueeTrackPr
       ref={viewportRef}
       role="group"
       aria-label={label}
-      className={`relative overflow-hidden py-1 ${grabbing ? "cursor-grabbing" : "cursor-grab"}`}
+      className={`relative touch-pan-y overflow-hidden py-1 mask-[linear-gradient(to_right,transparent,black_4%,black_96%,transparent)] ${grabbing ? "cursor-grabbing" : "cursor-grab"}`}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={endDrag}
@@ -187,10 +197,7 @@ function MarqueeTrack({ items, direction, reducedMotion, label }: MarqueeTrackPr
     >
       <div
         ref={trackRef}
-        className={`flex w-max items-center gap-3 sm:gap-4 ${reducedMotion ? "flex-wrap justify-center px-2" : ""}`}
-        style={{
-          transform: reducedMotion ? undefined : `translate3d(${-offset}px, 0, 0)`,
-        }}
+        className={`flex w-max items-center gap-3 sm:gap-4 ${reducedMotion ? "flex-wrap justify-center px-2" : "will-change-transform"}`}
       >
         {loopItems.map((item, index) => (
           <TechBadge key={`${item.name}-${index}`} item={item} />
@@ -228,7 +235,7 @@ export function Skills() {
             <h2 id="skills-heading" className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               Skills & <span>{skillsContent.titleAccent}</span>
             </h2>
-            <span aria-hidden="true" className="mt-3 block h-1 w-16 origin-center rounded-full bg-primary transition-[width] duration-300 ease-out group-hover:w-full md:origin-left" />
+            <SectionHeadingUnderline />
           </div>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">{skillsContent.subtitle}</p>
         </div>
