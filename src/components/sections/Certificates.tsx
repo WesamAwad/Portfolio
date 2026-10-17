@@ -15,7 +15,7 @@ const primaryBtnClass =
 
 function typeBadgeClass(type: Certificate["type"]) {
   if (type === "Specialization") {
-    return "border-primary/40 bg-primary/15 text-primary";
+    return "border-primary/40 bg-primary/15 text-[#115e59] dark:text-primary";
   }
   if (type === "Training") {
     return "border-accent/35 bg-accent/10 text-accent";

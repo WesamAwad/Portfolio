@@ -16,7 +16,7 @@ function ExperienceCard({ role }: { role: ExperienceRole }) {
         <div className="min-w-0 text-start">
           <div className="mb-2 flex flex-wrap items-center gap-2">
             {role.current ? (
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/15 px-2.5 py-1 text-[0.7rem] font-semibold tracking-wide text-primary uppercase">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/15 px-2.5 py-1 text-[0.7rem] font-semibold tracking-wide text-[#115e59] uppercase dark:text-primary">
                 <span className="relative flex h-1.5 w-1.5">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60 motion-reduce:animate-none" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
@@ -24,7 +24,7 @@ function ExperienceCard({ role }: { role: ExperienceRole }) {
                 Available for Hire
               </span>
             ) : null}
-            <span className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-semibold ${role.current ? "border-primary/40 bg-primary/10 text-primary" : "border-border bg-background/40 text-muted"}`}>{role.duration}</span>
+            <span className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-semibold ${role.current ? "border-primary/40 bg-primary/10 text-[#115e59] dark:text-primary" : "border-border bg-background/40 text-muted"}`}>{role.duration}</span>
           </div>
 
           <h3 className="font-display text-lg font-bold text-foreground sm:text-xl">{role.title}</h3>
@@ -56,7 +56,7 @@ function ExperienceCard({ role }: { role: ExperienceRole }) {
         <button
           type="button"
           onClick={() => setExpanded((prev) => !prev)}
-          className="relative mt-3 text-sm font-semibold text-primary underline-offset-2 hover:underline md:hidden"
+          className="relative mt-3 text-sm font-semibold text-[#115e59] underline-offset-2 hover:underline md:hidden dark:text-primary"
           aria-expanded={expanded}
         >
           {expanded ? "Show less" : "Show more"}

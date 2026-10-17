@@ -83,7 +83,7 @@ function ProjectDetailsModal({
           ) : null}
           <p className="text-sm leading-relaxed text-muted">{project.description}</p>
           <div className="mt-4 rounded-xl border border-border/80 bg-background/40 px-3.5 py-3">
-            <p className="text-[0.7rem] font-semibold tracking-wide text-primary uppercase">My role</p>
+            <p className="text-[0.7rem] font-semibold tracking-wide text-[#115e59] uppercase dark:text-primary">My role</p>
             <p className="mt-1.5 text-sm leading-relaxed text-foreground">{project.role}</p>
           </div>
           <ul className="mt-4 flex flex-wrap gap-2">
