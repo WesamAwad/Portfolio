@@ -97,7 +97,7 @@ export function Header() {
             setActiveHref("");
             closeMenu();
           }}
-          className="group relative font-display text-xl font-bold tracking-tight text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:text-2xl"
+          className="group relative font-hero text-xl font-bold tracking-tight text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:text-2xl"
         >
           <span className="relative z-10">
             <span className="text-primary">Wesam </span>

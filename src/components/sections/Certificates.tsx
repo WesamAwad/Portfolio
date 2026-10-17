@@ -259,10 +259,9 @@ export function Certificates() {
 
       <div className="relative mx-auto max-w-6xl px-4 py-20 text-center sm:px-6 md:px-8 md:py-28 md:text-start">
         <div className="mb-12 flex flex-col items-center md:mb-14 md:items-start">
-          <span className="mb-3 inline-flex items-center rounded-full border border-primary/35 bg-primary/10 px-3 py-1 text-xs font-semibold tracking-wide text-primary uppercase">Certificates</span>
           <div className="group inline-flex flex-col items-center md:items-start">
             <h2 id="certificates-heading" className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              Credentials & <span className="text-primary">Certificates</span>
+              My Certificates
             </h2>
             <SectionHeadingUnderline />
           </div>

@@ -27,8 +27,7 @@ export const projectFilters = [
 export type ProjectFilterId = (typeof projectFilters)[number]["id"];
 
 export const projectsContent = {
-  title: "Featured Work",
-  badge: "Projects",
+  title: "My Projects",
 } as const;
 
 export const projects: Project[] = [

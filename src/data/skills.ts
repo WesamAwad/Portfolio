@@ -12,9 +12,7 @@ export type SkillItem = {
 };
 
 export const skillsContent = {
-  badge: "Skills",
-  title: "Skills & Tech Stack",
-  titleAccent: "Tech Stack",
+  title: "My Skills",
   subtitle: "The tools, frameworks, and technologies I use to bring ideas to life.",
 } as const;
 

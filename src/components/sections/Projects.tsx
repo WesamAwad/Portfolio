@@ -250,7 +250,6 @@ export function Projects() {
 
       <div className="relative mx-auto max-w-6xl px-4 py-20 text-center sm:px-6 md:px-8 md:py-28 md:text-start">
         <div className="mb-10 flex flex-col items-center md:mb-12 md:items-start">
-          <span className="mb-3 inline-flex items-center rounded-full border border-primary/35 bg-primary/10 px-3 py-1 text-xs font-semibold tracking-wide text-primary uppercase">{projectsContent.badge}</span>
           <div className="group inline-flex flex-col items-center md:items-start">
             <h2 id="projects-heading" className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               {projectsContent.title}

@@ -126,10 +126,9 @@ export function Contact() {
 
       <div className="relative mx-auto flex max-w-6xl flex-col items-center px-4 py-14 text-center sm:px-6 md:px-8 md:py-16 lg:min-h-[calc(100svh-4.5rem)] lg:justify-center">
         <div className="mb-7 flex flex-col items-center md:mb-8">
-          <span className="mb-2 inline-flex items-center rounded-full border border-primary/35 bg-primary/10 px-3 py-1 text-xs font-semibold tracking-wide text-primary uppercase">Contact</span>
           <div className="group inline-flex flex-col items-center">
             <h2 id="contact-heading" className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              Get in <span className="text-primary">Touch</span>
+              Contact Me
             </h2>
             <SectionHeadingUnderline className="mt-2.5" />
           </div>

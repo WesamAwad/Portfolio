@@ -9,9 +9,7 @@ export type ExperienceRole = {
 };
 
 export const experienceContent = {
-  badge: "Experience",
-  title: "Professional Journey",
-  titleAccent: "Journey",
+  title: "My Experience",
   subtitle: "5+ years building modern web apps and leading frontend architecture.",
 } as const;
 
