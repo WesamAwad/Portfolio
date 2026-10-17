@@ -6,9 +6,10 @@ export const profile = {
   summary: "Crafting innovative solutions to solve real-world problems.",
   image: {
     /** Stable public URL so LCP can be preloaded from index.html */
-    src: "/profile.webp",
-    srcSet: "/profile-640.webp 640w, /profile.webp 1024w",
-    sizes: "(max-width: 768px) 90vw, 28rem",
+    src: "/profile-800.webp",
+    srcSet: "/profile-640.webp 640w, /profile-800.webp 800w, /profile.webp 1024w",
+    /** Matches max-w-md / max-w-lg so the browser doesn't overestimate and pick 1024w on mobile */
+    sizes: "(max-width: 768px) min(100vw, 28rem), 32rem",
     alt: "Wesam Awad, Front-End Developer",
   },
   ctas: {
