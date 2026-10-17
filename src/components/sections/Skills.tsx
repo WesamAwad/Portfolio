@@ -73,15 +73,26 @@ function MarqueeTrack({ items, direction, reducedMotion, label }: MarqueeTrackPr
   const dragStartOffsetRef = useRef(0);
   const velocityBoostRef = useRef(1);
   const rafRef = useRef<number | null>(null);
+  const measureRafRef = useRef<number | null>(null);
   const lastTimeRef = useRef<number | null>(null);
   const [grabbing, setGrabbing] = useState(false);
 
-  const measure = useCallback(() => {
+  /** Read geometry only — call from rAF to avoid forced reflow mid-style flush. */
+  const measureNow = useCallback(() => {
     const trackEl = trackRef.current;
     if (!trackEl) return;
     // One full set = half the duplicated track width
     loopWidthRef.current = trackEl.scrollWidth / LOOP_COPIES;
   }, []);
+
+  /** Defer measure to the next frame (after layout), coalescing rapid ResizeObserver events. */
+  const scheduleMeasure = useCallback(() => {
+    if (measureRafRef.current != null) return;
+    measureRafRef.current = requestAnimationFrame(() => {
+      measureRafRef.current = null;
+      measureNow();
+    });
+  }, [measureNow]);
 
   const normalizeOffset = useCallback((value: number) => {
     const width = loopWidthRef.current;
@@ -96,21 +107,30 @@ function MarqueeTrack({ items, direction, reducedMotion, label }: MarqueeTrackPr
     offsetRef.current = value;
     const trackEl = trackRef.current;
     if (trackEl) {
+      // transform does not affect layout — safe to write every frame
       trackEl.style.transform = `translate3d(${-value}px, 0, 0)`;
     }
   }, []);
 
   useEffect(() => {
-    measure();
+    scheduleMeasure();
     const viewport = viewportRef.current;
+    const trackEl = trackRef.current;
     if (!viewport) return;
 
-    const observer = new ResizeObserver(() => measure());
+    // Observe the viewport only — avoid ResizeObserver churn on the transforming track
+    const observer = new ResizeObserver(() => scheduleMeasure());
     observer.observe(viewport);
-    if (trackRef.current) observer.observe(trackRef.current);
+    if (trackEl) observer.observe(trackEl);
 
-    return () => observer.disconnect();
-  }, [measure, items]);
+    return () => {
+      observer.disconnect();
+      if (measureRafRef.current != null) {
+        cancelAnimationFrame(measureRafRef.current);
+        measureRafRef.current = null;
+      }
+    };
+  }, [scheduleMeasure, items]);
 
   useEffect(() => {
     if (reducedMotion) return;
@@ -138,7 +158,8 @@ function MarqueeTrack({ items, direction, reducedMotion, label }: MarqueeTrackPr
 
   const onPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (event.button !== 0) return;
-    measure();
+    // Sync read before drag — needed for correct loop width; no style writes yet
+    measureNow();
     draggingRef.current = true;
     pausedRef.current = true;
     pointerIdRef.current = event.pointerId;

@@ -71,6 +71,8 @@ function ProjectDetailsModal({
           {project.image ? (
             <img
               src={project.image}
+              srcSet={project.imageSrcSet}
+              sizes="(max-width: 768px) 90vw, 42rem"
               alt={`Screenshot of ${project.title}`}
               width={1600}
               height={1067}
@@ -127,6 +129,8 @@ function ProjectCard({ project }: { project: Project }) {
           {project.image ? (
             <img
               src={project.image}
+              srcSet={project.imageSrcSet}
+              sizes="(max-width: 768px) 90vw, (max-width: 1024px) 45vw, 380px"
               alt={`Screenshot of ${project.title}`}
               width={1600}
               height={1067}

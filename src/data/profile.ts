@@ -6,8 +6,9 @@ export const profile = {
   summary: "Crafting innovative solutions to solve real-world problems.",
   image: {
     /** Stable public URL so LCP can be preloaded from index.html */
-    light: "/profile.webp",
-    dark: "/profile.webp",
+    src: "/profile.webp",
+    srcSet: "/profile-640.webp 640w, /profile.webp 1024w",
+    sizes: "(max-width: 768px) 90vw, 28rem",
     alt: "Wesam Awad, Front-End Developer",
   },
   ctas: {

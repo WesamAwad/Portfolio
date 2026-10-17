@@ -1,7 +1,6 @@
 import { Mail } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "../icons/BrandIcons";
 import { profile } from "../../data/profile";
-import { useTheme } from "../../theme/useTheme";
 
 const socialLinks = [
   { href: profile.social.github, label: "GitHub", icon: GitHubIcon, external: true },
@@ -13,8 +12,6 @@ const iconLinkClassName =
   "inline-flex h-11 w-11 items-center justify-center rounded-lg border border-border bg-card text-muted transition hover:border-primary/50 hover:bg-primary/10 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring";
 
 export function Hero() {
-  const { dark } = useTheme();
-
   return (
     <section id="home" aria-labelledby="hero-heading" className="relative min-h-svh overflow-hidden bg-background">
       <div className="mx-auto grid min-h-svh max-w-6xl content-center items-center justify-items-center gap-0 px-4 py-20 text-center sm:px-6 md:content-normal md:items-center md:gap-10 md:grid-cols-2 md:justify-items-stretch md:px-8 md:py-28 md:text-start">
@@ -56,7 +53,9 @@ export function Hero() {
         <div className="relative order-1 flex w-full items-center justify-center md:order-2 md:justify-end">
           <div aria-hidden="true" className="absolute h-[70%] w-[70%] rounded-full bg-primary/15 blur-3xl" />
           <img
-            src={dark ? profile.image.dark : profile.image.light}
+            src={profile.image.src}
+            srcSet={profile.image.srcSet}
+            sizes={profile.image.sizes}
             alt={profile.image.alt}
             width={1024}
             height={1024}

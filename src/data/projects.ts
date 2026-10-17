@@ -1,6 +1,9 @@
 import alkanzAcademyImage from "../assets/Alkanze-Mockup.webp";
+import alkanzAcademyImageSm from "../assets/Alkanze-Mockup-800.webp";
 import creativeAgencyImage from "../assets/SpecialDesighn-Mockup.webp";
+import creativeAgencyImageSm from "../assets/SpecialDesighn-Mockup-800.webp";
 import swiftFixImage from "../assets/SwiftFix-Mockup.webp";
+import swiftFixImageSm from "../assets/SwiftFix-Mockup-800.webp";
 
 export type ProjectCategory = "react-ts" | "vanilla-js" | "landing";
 
@@ -12,6 +15,8 @@ export type Project = {
   category: ProjectCategory;
   tech: string[];
   image?: string;
+  /** Responsive candidates: "url 800w, url 1600w" */
+  imageSrcSet?: string;
   liveUrl?: string;
   githubUrl?: string;
   featured?: boolean;
@@ -39,6 +44,7 @@ export const projects: Project[] = [
     category: "react-ts",
     tech: ["React", "TypeScript", "Tailwind", "Redux"],
     image: swiftFixImage,
+    imageSrcSet: `${swiftFixImageSm} 800w, ${swiftFixImage} 1600w`,
     liveUrl: "https://swiftfix-app-project.vercel.app/",
     featured: true,
     githubUrl: "https://github.com/WesamAwad/Front-End-React-Tagat",
@@ -51,6 +57,7 @@ export const projects: Project[] = [
     category: "vanilla-js",
     tech: ["HTML", "CSS", "JavaScript", "Bootstrap5"],
     image: alkanzAcademyImage,
+    imageSrcSet: `${alkanzAcademyImageSm} 800w, ${alkanzAcademyImage} 1600w`,
     liveUrl: "https://alkanzacademy.com/",
   },
   {
@@ -61,6 +68,7 @@ export const projects: Project[] = [
     category: "landing",
     tech: ["HTML", "CSS", "JavaScript"],
     image: creativeAgencyImage,
+    imageSrcSet: `${creativeAgencyImageSm} 800w, ${creativeAgencyImage} 1600w`,
     liveUrl: "https://wesamawad.github.io/Project-js/",
     githubUrl: "https://github.com/WesamAwad/Project-js",
   },
