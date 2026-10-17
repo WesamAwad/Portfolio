@@ -86,7 +86,7 @@ function ProjectDetailsModal({
           </div>
           <ul className="mt-4 flex flex-wrap gap-2">
             {project.tech.map((tech) => (
-              <li key={tech} className="rounded-full border border-primary/25 bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
+              <li key={tech} className="rounded-full border border-primary/25 bg-primary/10 px-2.5 py-1 text-xs font-medium text-[#115e59] dark:text-primary">
                 {tech}
               </li>
             ))}
@@ -178,13 +178,13 @@ function ProjectCard({ project }: { project: Project }) {
             {project.tech.map((tech, index) => (
               <li
                 key={tech}
-                className={`rounded-full border border-primary/25 bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary ${index >= 3 ? "hidden md:list-item" : ""}`}
+                className={`rounded-full border border-primary/25 bg-primary/10 px-2.5 py-1 text-xs font-medium text-[#115e59] dark:text-primary ${index >= 3 ? "hidden md:list-item" : ""}`}
               >
                 {tech}
               </li>
             ))}
             {project.tech.length > 3 ? (
-              <li className="rounded-full border border-primary/25 bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary md:hidden" aria-label={`${project.tech.length - 3} more technologies`}>
+              <li className="rounded-full border border-primary/25 bg-primary/10 px-2.5 py-1 text-xs font-medium text-[#115e59] md:hidden dark:text-primary" aria-label={`${project.tech.length - 3} more technologies`}>
                 +{project.tech.length - 3}
               </li>
             ) : null}

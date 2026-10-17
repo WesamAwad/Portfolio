@@ -187,7 +187,7 @@ function CertificateCard({ certificate }: { certificate: Certificate }) {
 
           <ul className="flex flex-wrap gap-2">
             {certificate.skills.map((skill) => (
-              <li key={skill} className="rounded-full border border-primary/25 bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
+              <li key={skill} className="rounded-full border border-primary/25 bg-primary/10 px-2.5 py-1 text-xs font-medium text-[#115e59] dark:text-primary">
                 {skill}
               </li>
             ))}

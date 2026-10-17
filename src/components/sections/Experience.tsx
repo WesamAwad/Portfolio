@@ -67,7 +67,7 @@ function ExperienceCard({ role }: { role: ExperienceRole }) {
         {role.tech.map((tech, index) => (
           <li
             key={tech}
-            className={`rounded-full border border-primary/25 bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary ${index >= 4 && !expanded ? "hidden md:list-item" : ""}`}
+            className={`rounded-full border border-primary/25 bg-primary/10 px-2.5 py-1 text-xs font-medium text-[#115e59] dark:text-primary ${index >= 4 && !expanded ? "hidden md:list-item" : ""}`}
           >
             {tech}
           </li>
@@ -77,7 +77,7 @@ function ExperienceCard({ role }: { role: ExperienceRole }) {
             <button
               type="button"
               onClick={() => setExpanded(true)}
-              className="cursor-pointer rounded-full border border-primary/25 bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary transition-colors hover:border-primary/45 hover:bg-primary/20 active:bg-primary/25"
+              className="cursor-pointer rounded-full border border-primary/25 bg-primary/10 px-2.5 py-1 text-xs font-medium text-[#115e59] transition-colors hover:border-primary/45 hover:bg-primary/20 active:bg-primary/25 dark:text-primary"
               aria-label={`Show ${extraTechCount} more technologies and details`}
             >
               +{extraTechCount}
