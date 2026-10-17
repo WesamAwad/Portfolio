@@ -283,15 +283,14 @@ export function Certificates() {
           ))}
         </ul>
 
-        <div className="mt-5 flex justify-center gap-2 md:hidden" role="tablist" aria-label="Certificate slides">
+        <div className="mt-5 flex justify-center gap-1 md:hidden" role="group" aria-label="Certificate slides">
           {certificates.map((certificate, index) => (
             <button
               key={certificate.id}
               type="button"
-              role="tab"
-              aria-selected={activeIndex === index}
-              aria-label={`Go to ${certificate.title}`}
-              className={`h-2 w-2 cursor-pointer rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring ${activeIndex === index ? "bg-primary" : "bg-border hover:bg-muted"}`}
+              aria-current={activeIndex === index ? "true" : undefined}
+              aria-label={`Certificate ${index + 1} of ${certificates.length}: ${certificate.title}`}
+              className="inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
               onClick={() => {
                 const scroller = scrollerRef.current;
                 const item = scroller?.children[index] as HTMLElement | undefined;
@@ -300,7 +299,12 @@ export function Certificates() {
                 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
                 scroller.scrollTo({ left: Math.max(0, left), behavior: reduceMotion ? "auto" : "smooth" });
               }}
-            />
+            >
+              <span
+                aria-hidden="true"
+                className={`block h-2 w-2 rounded-full transition-colors ${activeIndex === index ? "bg-primary" : "bg-border"}`}
+              />
+            </button>
           ))}
         </div>
       </div>
