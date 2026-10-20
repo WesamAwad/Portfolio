@@ -2,7 +2,7 @@
 
 Personal portfolio of **Wesam Awad**, Front-End Developer specializing in React, TypeScript, and Tailwind CSS.
 
-**Live site:** [wesam-portfolio-one.vercel.app](https://wesam-portfolio-one.vercel.app/)
+**Live site:** [wesam-awad.vercel.app](https://wesam-awad.vercel.app/)
 
 ## About
 
