@@ -1,27 +1,25 @@
 <!doctype html>
 <html lang="en" dir="ltr">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>
       try {
         var saved = localStorage.getItem("theme");
-        var isDark =
-          saved === "dark" ||
-          (saved !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        var isDark = saved === "dark" || (saved !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
         document.documentElement.classList.toggle("dark", isDark);
       } catch (e) {}
     </script>
-    <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark light" />
     <meta name="theme-color" content="#0b0f14" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
     <meta name="author" content="Wesam Awad" />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="robots" content="max-image-preview:large" />
     <title>Wesam Awad | Front-End Developer — React &amp; TypeScript</title>
     <meta
       name="description"
-      content="Wesam Awad — Front-End Developer specializing in React, TypeScript, and Tailwind CSS. Building fast, accessible web apps with strong UI craft, performance, and SEO."
+      content="Front-End Developer specializing in React, TypeScript &amp; Tailwind CSS. I build fast, accessible web apps with strong UI craft and performance."
     />
     <link rel="canonical" href="https://wesam-awad.vercel.app/" />
 
@@ -33,7 +31,7 @@
     <meta property="og:title" content="Wesam Awad | Front-End Developer — React &amp; TypeScript" />
     <meta
       property="og:description"
-      content="Wesam Awad — Front-End Developer specializing in React, TypeScript, and Tailwind CSS. Building fast, accessible web apps with strong UI craft, performance, and SEO."
+      content="Front-End Developer specializing in React, TypeScript &amp; Tailwind CSS. I build fast, accessible web apps with strong UI craft and performance."
     />
     <meta property="og:image" content="https://wesam-awad.vercel.app/og-image.jpg" />
     <meta property="og:image:type" content="image/jpeg" />
@@ -46,7 +44,7 @@
     <meta name="twitter:title" content="Wesam Awad | Front-End Developer — React &amp; TypeScript" />
     <meta
       name="twitter:description"
-      content="Wesam Awad — Front-End Developer specializing in React, TypeScript, and Tailwind CSS. Building fast, accessible web apps with strong UI craft, performance, and SEO."
+      content="Front-End Developer specializing in React, TypeScript &amp; Tailwind CSS. I build fast, accessible web apps with strong UI craft and performance."
     />
     <meta name="twitter:image" content="https://wesam-awad.vercel.app/og-image.jpg" />
     <meta name="twitter:image:alt" content="Wesam Awad, Front-End Developer" />
@@ -69,7 +67,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@700&display=swap"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <noscript>
       <link
@@ -77,6 +75,32 @@
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@700&display=swap"
       />
     </noscript>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://wesam-awad.vercel.app/#website",
+            "url": "https://wesam-awad.vercel.app/",
+            "name": "Wesam Awad",
+            "inLanguage": "en",
+            "publisher": { "@id": "https://wesam-awad.vercel.app/#person" }
+          },
+          {
+            "@type": "Person",
+            "@id": "https://wesam-awad.vercel.app/#person",
+            "name": "Wesam Awad",
+            "url": "https://wesam-awad.vercel.app/",
+            "image": "https://wesam-awad.vercel.app/profile.webp",
+            "jobTitle": "Front-End Developer",
+            "knowsAbout": ["React", "TypeScript", "Tailwind CSS", "Web Performance", "Technical SEO"],
+            "sameAs": ["https://github.com/WesamAwad", "https://www.linkedin.com/in/wesamawad"]
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
