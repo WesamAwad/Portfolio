@@ -7,6 +7,7 @@ import { ScrollToHash } from "./components/ScrollToHash";
 
 const AboutMe = lazy(() => import("./components/sections/AboutMe").then((module) => ({ default: module.AboutMe })));
 const Projects = lazy(() => import("./components/sections/Projects").then((module) => ({ default: module.Projects })));
+const Performance = lazy(() => import("./components/sections/Performance").then((module) => ({ default: module.Performance })));
 const Skills = lazy(() => import("./components/sections/Skills").then((module) => ({ default: module.Skills })));
 const Experience = lazy(() => import("./components/sections/Experience").then((module) => ({ default: module.Experience })));
 const Certificates = lazy(() => import("./components/sections/Certificates").then((module) => ({ default: module.Certificates })));
@@ -28,6 +29,9 @@ export default function App() {
         </SectionSuspense>
         <SectionSuspense>
           <Projects />
+        </SectionSuspense>
+        <SectionSuspense>
+          <Performance />
         </SectionSuspense>
         <SectionSuspense>
           <Skills />
